@@ -1,0 +1,15 @@
+angular.module("myApp",["ui.router","ngMaterial"])
+.config(function($stateProvider,$urlRouterProvider){
+  $urlRouterProvider.otherwise("login");
+  $stateProvider
+  .state("login",{
+    url:"/login",
+    templateUrl:"template/login.html",
+    controller:"loginCtrl"
+  })
+  .state("main",{
+    url:"/main",
+    templateUrl:"template/main.html",
+    controller:"mainCtrl"
+  })
+})
