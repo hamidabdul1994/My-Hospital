@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Angular</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+  </head>
+  <body ng-app="myApp.counter_controller">
+    <ul class="dropdown-menu" role="menu" ng-controller="CounterController">
+   <li ng-repeat="item in messages"><a href="">{{item.name}}</a></li>
+</ul>
+<script type="text/javascript">
+angular
+.module('myApp.counter_controller', [])
+.controller('CounterController', ['$scope', '$filter', function($scope, $filter) {
+  'use strict';
+  $scope.messages = [{
+      name : 'ENG',
+      read : false
+  }, {
+      name : 'JPN',
+      read : false
+  }, {
+      name : 'CHI',
+      read : false
+  }, ];
+$scope.setRead = function(item, $event) {
+$event.preventDefault();
+$event.stopPropagation();
+item.read = true;
+};
+$scope.setUnread = function(item, $event) {
+$event.preventDefault();
+$event.stopPropagation();
+item.read = false;
+};
+$scope.setReadAll = function($event) {
+$event.preventDefault();
+$event.stopPropagation();
+angular.forEach($scope.messages, function(item) {
+  item.read = true;
+});
+};
+$scope.unseenCount = $filter('filter')($scope.messages, {
+read: false
+}).length;
+$scope.$watch('messages', function(messages) {
+$scope.unseenCount = $filter('filter')(messages, {
+  read: false
+}).length;
+}, true);
+}]);
+</script>
+  </body>
+</html>
